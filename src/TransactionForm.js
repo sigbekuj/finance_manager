@@ -4,16 +4,14 @@ import axios from "axios";
 function TransactionForm({ setTransactions }) {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
-  const [type, setType] = useState("expense"); // default
+  const [type, setType] = useState("expense");
 
   const submit = async () => {
-    const newTransaction = { amount, type, category };
-    await axios.post("http://localhost:5000/transactions", newTransaction);
+    await axios.post("http://localhost:5000/transactions", { amount, type, category });
+    // Fetch updated list
+    const res = await axios.get("http://localhost:5000/transactions");
+    setTransactions(res.data);
 
-    // Update transactions in App.js
-    setTransactions(prev => [...prev, newTransaction]);
-
-    // Clear form
     setAmount("");
     setCategory("");
   };
