@@ -20,21 +20,41 @@ function App() {
     fetchTransactions(); // refresh list
   };
 
+  const income = transactions
+  .filter(t => t.type === "income")
+  .reduce((sum, t) => sum + Number(t.amount), 0);
+
+  const expenses = transactions
+  .filter(t => t.type === "expense")
+  .reduce((sum, t) => sum + Number(t.amount), 0);
+
+  const balance = income - expenses;
+
   return (
     <div>
       <h1>Personal Finance Manager</h1>
       <TransactionForm setTransactions={setTransactions} />
 
       <h2>Transactions</h2>
+
       <ul>
         {transactions.map((t) => (
           <li key={t.id}>
             {t.type}: £{t.amount} {t.category ? `- ${t.category}` : ""}
             <button onClick={() => deleteTransaction(t.id)}>Delete</button>
           </li>
+
         ))}
-      </ul>
+    
+      </ul> 
+
+      <h2>Dashboard</h2>
+
+       <p>💰 Income: £{income}</p>
+       <p>💸 Expenses: £{expenses}</p>
+       <p>📊 <strong>Balance: £{balance}</strong></p>
     </div>
+    
   );
 }
 

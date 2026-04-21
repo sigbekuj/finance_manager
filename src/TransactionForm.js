@@ -7,8 +7,12 @@ function TransactionForm({ setTransactions }) {
   const [type, setType] = useState("expense");
 
   const submit = async () => {
-    await axios.post("http://localhost:5000/transactions", { amount, type, category });
+    await axios.post("http://localhost:5000/transactions", { 
+      amount, 
+      type, 
+      category });
     // Fetch updated list
+    //refesh data
     const res = await axios.get("http://localhost:5000/transactions");
     setTransactions(res.data);
 
