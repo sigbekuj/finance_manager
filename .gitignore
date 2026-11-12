@@ -11,6 +11,14 @@
 # production
 /build
 
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies in any folder
+node_modules/
+
 # misc
 .DS_Store
 .env.local
